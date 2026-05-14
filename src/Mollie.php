@@ -11,7 +11,7 @@ use Emeq\MollieApi\Data\MollieOAuthCredentials;
 use Emeq\MollieApi\Exceptions\MollieException;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
 use Illuminate\Contracts\Container\Container;
-use Mollie\Api\Idempotency\IdempotencyKeyGeneratorContract;
+use Mollie\Api\Contracts\IdempotencyKeyGeneratorContract;
 use Mollie\Api\MollieApiClient;
 
 /**
