@@ -29,7 +29,18 @@ Een `MollieCredentialResolver::resolve()` returnt óf `MollieApiKeyCredentials` 
 
 ### Facade-alias collision
 
-Bij gebruik naast [`mollie/laravel-mollie`](https://github.com/mollie/laravel-mollie) (bijv. transitive via Cashier-Mollie) moet één van beide aliases worden uitgeschakeld of FQN-imported. Zie [docs/integraties](#) (volgt in Phase 6 — SUB-01).
+`emeq/mollie-api` registreert een facade onder de alias-naam `Mollie`. Dit matched de Snelstart-SDK-pattern (`Snelstart` alias) en is consistent met de verdere `emeq/*` SDK-laag.
+
+Wanneer een host-app naast deze SDK óók [`mollie/laravel-mollie`](https://github.com/mollie/laravel-mollie) gebruikt (bijvoorbeeld transitive via [`mollie/laravel-cashier-mollie`](https://github.com/mollie/laravel-cashier-mollie)) ontstaat er een alias-conflict op de korte naam `Mollie` in `config/app.php → aliases`.
+
+**Status in Phase 2 (v0.2):** Phase 2 levert dit op met de `Mollie`-alias zonder ingebouwde detectie of compat-laag voor laravel-mollie. Host-apps die beide pakketten gebruiken moeten één van twee:
+
+1. Verwijder de auto-registered `Mollie`-alias van laravel-mollie en gebruik volledig gekwalificeerde imports (`use Mollie\Laravel\Facades\Mollie as LaravelMollie;`), of
+2. Disable auto-discovery voor één van beide packages en bind de facade handmatig onder een eigen alias.
+
+**Status in Phase 6 (SUB-01):** Phase 6's SUB-01 levert een eerste-class collision-resolutie. De ROADMAP Phase 2 success criterion 3 ("emeq/mollie-api en mollie/laravel-mollie functioneren naast elkaar zonder conflict") wordt in Phase 2 daarom NIET via tests gevalideerd — die dekking komt in Phase 6.
+
+Beslissingsspoor (CONTEXT.md decision, 2026-05-14): de alias blijft `Mollie` omdat consistency met Snelstart-pattern zwaarder weegt dan future-proofing voor laravel-mollie-coexistentie in Phase 2.
 
 ## Onderdeel van
 
