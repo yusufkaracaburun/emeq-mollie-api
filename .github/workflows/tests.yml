@@ -1,0 +1,95 @@
+name: tests
+
+on:
+  push:
+    branches: [main, master, feat/foundation]
+  pull_request:
+    branches: [main, master, feat/foundation]
+
+jobs:
+  pest:
+    name: pest / php ${{ matrix.php }} / ${{ matrix.dependency-version }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['8.3', '8.4']
+        dependency-version: [prefer-lowest, prefer-stable]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: json, mbstring, openssl
+          coverage: none
+
+      - name: Install composer dependencies
+        run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-progress
+
+      - name: Run Pest
+        run: vendor/bin/pest --compact
+
+  pint:
+    name: pint --test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          coverage: none
+
+      - name: Install composer dependencies
+        run: composer install --prefer-dist --no-interaction --no-progress
+
+      - name: Run Pint in dry-run mode
+        run: vendor/bin/pint --test --format agent
+
+  phpstan:
+    name: phpstan analyse (level 8)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          coverage: none
+
+      - name: Install composer dependencies
+        run: composer install --prefer-dist --no-interaction --no-progress
+
+      - name: Run PHPStan
+        run: vendor/bin/phpstan analyse --no-progress
+
+  audit:
+    name: composer audit
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          coverage: none
+
+      - name: Install composer dependencies
+        run: composer install --prefer-dist --no-interaction --no-progress
+
+      - name: Audit dependencies for security advisories
+        run: composer audit --no-dev
