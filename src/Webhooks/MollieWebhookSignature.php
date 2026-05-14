@@ -31,15 +31,18 @@ final class MollieWebhookSignature
      */
     public static function verify(Request $request, string|array $signingSecrets): bool
     {
-        $signatureHeaders = $request->header(SignatureValidator::SIGNATURE_HEADER);
+        $signatureHeaders = array_values(array_filter(
+            $request->headers->all(SignatureValidator::SIGNATURE_HEADER),
+            static fn (?string $value): bool => null !== $value && '' !== $value,
+        ));
 
-        if (null === $signatureHeaders || [] === $signatureHeaders) {
+        if ([] === $signatureHeaders) {
             return false;
         }
 
         return (new SignatureValidator($signingSecrets))->validatePayload(
             payload: $request->getContent(),
-            signatures: is_array($signatureHeaders) ? $signatureHeaders : [$signatureHeaders],
+            signatures: $signatureHeaders,
         );
     }
 

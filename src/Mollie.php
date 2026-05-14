@@ -62,6 +62,10 @@ class Mollie
         match (true) {
             $creds instanceof MollieApiKeyCredentials => $client->setApiKey($creds->apiKey),
             $creds instanceof MollieOAuthCredentials  => $client->setAccessToken($creds->accessToken),
+            default                                   => throw new MollieException(sprintf(
+                'Unsupported MollieCredentials subtype: %s. Expected MollieApiKeyCredentials or MollieOAuthCredentials.',
+                $creds::class,
+            )),
         };
 
         $this->applyIdempotencyGenerator($client);
