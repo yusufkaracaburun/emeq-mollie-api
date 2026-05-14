@@ -33,3 +33,7 @@ testbench.yaml
 
 # Planning scratchpads (lokale diagnostiek; horen niet in de SDK-repo)
 .planning-scratch/
+
+# Inspection notes (lokale FQCN-verificatie tijdens plan-execution; horen niet in de SDK-repo)
+*.notes.md
+.mollie-fake-fqcn-notes.md
