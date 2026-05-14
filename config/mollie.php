@@ -14,6 +14,21 @@ return [
      */
     'enforce_environment' => env('MOLLIE_ENFORCE_ENVIRONMENT', false),
 
+    /*
+     * Class-alias-naam waaronder de Mollie-facade beschikbaar wordt gemaakt
+     * via Illuminate\Foundation\AliasLoader. Default 'Mollie' matched de
+     * Snelstart-SDK-pattern (alias 'Snelstart').
+     *
+     * Zet op null om de alias-registratie volledig over te slaan — handig
+     * wanneer een host-app óók mollie/laravel-mollie installeert
+     * (transitive via cashier-mollie bv) en de alias 'Mollie' al claimt.
+     * Gebruik in dat geval de full-FQN: \Emeq\MollieApi\Facades\Mollie.
+     *
+     * Of zet op een eigen string ('EmeqMollie') om naast laravel-mollie te
+     * coexistentën zonder fully-qualified imports.
+     */
+    'facade_alias' => env('MOLLIE_FACADE_ALIAS', 'Mollie'),
+
     'http' => [
         /*
          * Guzzle request-timeout in seconden. Wordt gebruikt om een custom

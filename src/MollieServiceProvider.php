@@ -6,7 +6,9 @@ namespace Emeq\MollieApi;
 
 use Emeq\MollieApi\Contracts\MollieCredentialResolver;
 use Emeq\MollieApi\Exceptions\MissingCredentialResolverException;
+use Emeq\MollieApi\Facades\Mollie as MollieFacade;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Foundation\AliasLoader;
 use Mollie\Api\MollieApiClient;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
@@ -46,5 +48,28 @@ class MollieServiceProvider extends PackageServiceProvider
             MollieApiClient::class,
             fn (Application $app): MollieApiClient => $app->make(Mollie::class)->client(),
         );
+    }
+
+    public function packageBooted(): void
+    {
+        $this->registerFacadeAlias();
+    }
+
+    /**
+     * Registreer de class-alias voor de Mollie-facade via AliasLoader.
+     *
+     * Dynamisch (ipv via composer.json extra.laravel.aliases) zodat host-apps
+     * de naam via config('mollie.facade_alias') kunnen wijzigen of op null
+     * kunnen zetten om alias-collisions met mollie/laravel-mollie te vermijden.
+     */
+    private function registerFacadeAlias(): void
+    {
+        $alias = $this->app->make('config')->get('mollie.facade_alias');
+
+        if (null === $alias || '' === $alias) {
+            return;
+        }
+
+        AliasLoader::getInstance()->alias($alias, MollieFacade::class);
     }
 }

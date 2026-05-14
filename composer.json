@@ -70,10 +70,7 @@
         "laravel": {
             "providers": [
                 "Emeq\\MollieApi\\MollieServiceProvider"
-            ],
-            "aliases": {
-                "Mollie": "Emeq\\MollieApi\\Facades\\Mollie"
-            }
+            ]
         }
     },
     "minimum-stability": "dev",
