@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Emeq\MollieApi\Tests\Support;
+namespace Emeq\MollieApi\Testing;
 
 use Emeq\MollieApi\Contracts\MollieCredentialResolver;
 use Emeq\MollieApi\Data\MollieApiKeyCredentials;

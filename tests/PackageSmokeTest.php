@@ -8,7 +8,7 @@ use Emeq\MollieApi\Exceptions\MissingCredentialResolverException;
 use Emeq\MollieApi\Facades\Mollie as MollieFacade;
 use Emeq\MollieApi\Mollie;
 use Emeq\MollieApi\MollieServiceProvider;
-use Emeq\MollieApi\Tests\Support\FakeMollieCredentialResolver;
+use Emeq\MollieApi\Testing\FakeMollieCredentialResolver;
 use Mollie\Api\MollieApiClient;
 
 it('registers the service provider', function (): void {

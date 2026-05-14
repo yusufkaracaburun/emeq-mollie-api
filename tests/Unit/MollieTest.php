@@ -6,7 +6,7 @@ use Emeq\MollieApi\Contracts\MollieCredentialResolver;
 use Emeq\MollieApi\Data\MollieApiKeyCredentials;
 use Emeq\MollieApi\Exceptions\MollieException;
 use Emeq\MollieApi\Mollie;
-use Emeq\MollieApi\Tests\Support\FakeMollieCredentialResolver;
+use Emeq\MollieApi\Testing\FakeMollieCredentialResolver;
 use Mollie\Api\Contracts\IdempotencyKeyGeneratorContract;
 use Mollie\Api\MollieApiClient;
 

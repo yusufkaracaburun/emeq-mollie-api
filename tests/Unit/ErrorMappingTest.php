@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Emeq\MollieApi\Contracts\MollieCredentialResolver;
 use Emeq\MollieApi\Mollie;
-use Emeq\MollieApi\Tests\Support\FakeMollieCredentialResolver;
+use Emeq\MollieApi\Testing\FakeMollieCredentialResolver;
 use Mollie\Api\Exceptions\ValidationException;
 use Mollie\Api\Fake\MockResponse;
 use Mollie\Api\Http\Auth\ApiKeyAuthenticator;
