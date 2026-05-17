@@ -62,4 +62,18 @@ return [
         'generator' => null,
     ],
 
+    'webhook' => [
+        /*
+         * Platform-wide signing-secret voor inbound Mollie-webhooks.
+         * Mollie tekent payloads met deze secret; verifiër via
+         * `Emeq\MollieApi\Webhooks\MollieWebhookSignature::verify(...)`.
+         *
+         * Hard-fail guard in host-apps: een empty/null secret laat
+         * `hash_equals('', '')` true retourneren, dus elke unsigned forgery
+         * zou als geldig worden behandeld. Host moet 500 returnen wanneer
+         * deze waarde ontbreekt.
+         */
+        'secret' => env('MOLLIE_WEBHOOK_SECRET'),
+    ],
+
 ];
