@@ -7,6 +7,15 @@ en dit project volgt [Semantic Versioning](https://semver.org/lang/nl/).
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-05-20
+
+Eerste stabiele release. Functioneel identiek aan `v0.1.0-alpha.2` —
+deze tag promoot de alpha-baseline naar stable zodat downstream
+consumers (zoals Naschool in `emeq-hub` v0.3 Phase 14) kunnen pinnen
+op een caret-constraint zonder `minimum-stability=alpha` op te geven.
+
+Geen API-wijzigingen sinds `v0.1.0-alpha.2`.
+
 ## [0.1.0-alpha.1] - 2026-05-14
 
 Eerste publieke pre-release. Dunne, multi-tenant Laravel-wrapper rond
